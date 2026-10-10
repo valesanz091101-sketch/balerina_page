@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instituto Urbano | Escuela con Estilo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --bg-card: #141414;
+      --bg-elevated: #1c1c1c;
+      --gold: #f5c518;
+      --gold-dim: #c9a012;
+      --red: #e63946;
+      --neon: #00f5d4;
+      --text: #f0f0f0;
+      --text-muted: #a0a0a0;
+      --border: #2a2a2a;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ===== NAV ===== */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 3px;
+      color: var(--gold);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .logo span {
+      color: var(--text);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.95rem;
+      letter-spacing: 0.5px;
+      transition: color 0.25s;
+      position: relative;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--gold);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width 0.3s;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--gold);
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      padding: 6rem 2rem 4rem;
+      background:
+        radial-gradient(ellipse at 20% 50%, rgba(245, 197, 24, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 20%, rgba(0, 245, 212, 0.06) 0%, transparent 40%),
+        linear-gradient(180deg, #0a0a0a 0%, #111 100%);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245, 197, 24, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245, 197, 24, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(245, 197, 24, 0.15);
+      border: 1px solid var(--gold-dim);
+      color: var(--gold);
+      padding: 0.4rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3.5rem, 10vw, 6.5rem);
+      line-height: 0.95;
+      letter-spacing: 4px;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero h1 .gold {
+      color: var(--gold);
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      max-width: 580px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      transition: all 0.3s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: #0a0a0a;
+    }
+
+    .btn-primary:hover {
+      background: #ffd700;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(245, 197, 24, 0.35);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    /* ===== SECTIONS ===== */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-header h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.4rem, 5vw, 3.5rem);
+      letter-spacing: 3px;
+      margin-bottom: 0.8rem;
+    }
+
+    .section-header h2 span {
+      color: var(--gold);
+    }
+
+    .section-header p {
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .about-text h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      letter-spacing: 2px;
+      margin-bottom: 1rem;
+      color: var(--gold);
+    }
+
+    .about-text p {
+      color: var(--text-muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+      padding: 1.2rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .stat .num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.2rem;
+      color: var(--gold);
+      letter-spacing: 1px;
+    }
+
+    .stat .label {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.2rem;
+    }
+
+    .about-visual {
+      position: relative;
+      height: 380px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .about-visual::before {
+      content: 'IU';
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 12rem;
+      color: rgba(245, 197, 24, 0.08);
+      position: absolute;
+      letter-spacing: 10px;
+    }
+
+    .about-visual .tag {
+      position: relative;
+      z-index: 1;
+      background: var(--bg-elevated);
+      border: 1px solid var(--gold-dim);
+      padding: 1.5rem 2rem;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .about-visual .tag h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+
+    .about-visual .tag p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      margin-top: 0.3rem;
+    }
+
+    /* ===== COURSES ===== */
+    .courses {
+      background: linear-gradient(180deg, #0a0a0a 0%, #0f0f0f 100%);
+    }
+
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .course-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      transition: all 0.3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--neon));
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .course-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--gold-dim);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .course-card:hover::before {
+      opacity: 1;
+    }
+
+    .course-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(245, 197, 24, 0.12);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .course-card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+
+    .course-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .course-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .course-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    /* ===== NEWS ===== */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .news-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--gold-dim);
+    }
+
+    .news-img {
+      height: 160px;
+      background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+
+    .news-img .date {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--gold);
+      color: #0a0a0a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 4px;
+    }
+
+    .news-body {
+      padding: 1.4rem;
+    }
+
+    .news-body h3 {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .news-body p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* ===== CONTACT ===== */
+    .contact {
+      background: linear-gradient(180deg, #0f0f0f 0%, #0a0a0a 100%);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-item {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: flex-start;
+    }
+
+    .contact-item .icon {
+      width: 42px;
+      height: 42px;
+      background: rgba(245, 197, 24, 0.12);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 1.1rem;
+    }
+
+    .contact-item h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .contact-item p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .contact-form {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.2rem;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 0.4rem;
+      color: var(--text-muted);
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.25s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: #050505;
+      border-top: 1px solid var(--border);
+      padding: 3rem 2rem 2rem;
+    }
+
+    .footer-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 2.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .footer-brand .logo {
+      margin-bottom: 1rem;
+      display: inline-block;
+    }
+
+    .footer-brand p {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      max-width: 280px;
+    }
+
+    .footer-col h4 {
+      font-family: 'Bebas Neue', sans-serif;
+      letter-spacing: 2px;
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+      color: var(--gold);
+    }
+
+    .footer-col a {
+      display: block;
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+      transition: color 0.25s;
+    }
+
+    .footer-col a:hover {
+      color: var(--gold);
+    }
+
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: rgba(10, 10, 10, 0.98);
+        flex-direction: column;
+        padding: 1.5rem 2rem;
+        gap: 1.2rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .nav-links.open {
+        display: flex;
+      }
+
+      .menu-btn {
+        display: block;
+      }
+
+      .about-grid,
+      .contact-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .about-visual {
+        height: 260px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+      }
+
+      .stats {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#inicio" class="logo">INSTITUTO <span>URBANO</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#inicio" class="active">Inicio</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#programas">Programas</a></li>
+      <li><a href="#noticias">Noticias</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <button class="menu-btn" id="menuBtn" aria-label="Menú">☰</button>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero" id="inicio">
+    <div class="hero-content">
+      <div class="badge">Educación con actitud</div>
+      <h1>ESCUELA CON<br><span class="gold">ESTILO GÁNGSTER</span></h1>
+      <p>Formamos líderes con carácter, disciplina y visión. Aquí no solo aprendés: te preparás para dominar el juego.</p>
+      <div class="btn-group">
+        <a href="#programas" class="btn btn-primary">Ver Programas</a>
+        <a href="#contacto" class="btn btn-outline">Inscribite</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="nosotros">
+    <div class="container">
+      <div class="section-header">
+        <h2>SOBRE <span>NOSOTROS</span></h2>
+        <p>Más que una escuela: una comunidad con código, respeto y excelencia.</p>
+      </div>
+      <div class="about-grid">
+        <div class="about-text">
+          <h3>NUESTRO CÓDIGO</h3>
+          <p>En el Instituto Urbano creemos que la educación tiene que tener carácter. Combinamos rigor académico con una cultura de respeto, disciplina y creatividad.</p>
+          <p>Nuestros estudiantes no solo aprenden materias: desarrollan liderazgo, pensamiento crítico y la confianza para destacar en cualquier terreno.</p>
+          <div class="stats">
+            <div class="stat">
+              <div class="num">15+</div>
+              <div class="label">Años</div>
+            </div>
+            <div class="stat">
+              <div class="num">1.2K</div>
+              <div class="label">Alumnos</div>
+            </div>
+            <div class="stat">
+              <div class="num">98%</div>
+              <div class="label">Aprobados</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-visual">
+          <div class="tag">
+            <h4>RESPECT &amp; EXCELLENCE</h4>
+            <p>El lema que nos define</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROGRAMS -->
+  <section class="courses" id="programas">
+    <div class="container">
+      <div class="section-header">
+        <h2>NUESTROS <span>PROGRAMAS</span></h2>
+        <p>Formación sólida con vibra actual. Elegí tu camino.</p>
+      </div>
+      <div class="courses-grid">
+        <div class="course-card">
+          <div class="course-icon">📚</div>
+          <h3>Bachillerato General</h3>
+          <p>Base académica completa con enfoque en pensamiento crítico y preparación universitaria.</p>
+          <div class="course-meta">
+            <span>⏱ 3 años</span>
+            <span>📍 Presencial</span>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">💻</div>
+          <h3>Técnico en Tecnología</h3>
+          <p>Programación, diseño digital y herramientas del futuro. Para los que quieren crear.</p>
+          <div class="course-meta">
+            <span>⏱ 3 años</span>
+            <span>📍 Híbrido</span>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">🎨</div>
+          <h3>Artes &amp; Diseño</h3>
+          <p>Creatividad sin límites: artes visuales, diseño gráfico y comunicación visual.</p>
+          <div class="course-meta">
+            <span>⏱ 3 años</span>
+            <span>📍 Presencial</span>
+          </div>
+        </div>
+        <div class="course-card">
+          <div class="course-icon">⚽</div>
+          <h3>Deporte &amp; Salud</h3>
+          <p>Formación física, nutrición y liderazgo deportivo. Mente y cuerpo al 100%.</p>
+          <div class="course-meta">
+            <span>⏱ 3 años</span>
+            <span>📍 Presencial</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWS -->
+  <section id="noticias">
+    <div class="container">
+      <div class="section-header">
+        <h2>ÚLTIMAS <span>NOTICIAS</span></h2>
+        <p>Lo que está pasando en el Instituto Urbano.</p>
+      </div>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-img">
+            🏆
+            <span class="date">05 OCT</span>
+          </div>
+          <div class="news-body">
+            <h3>Campeones del torneo intercolegial</h3>
+            <p>Nuestro equipo de fútbol se coronó campeón regional. Orgullo total.</p>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-img">
+            🚀
+            <span class="date">28 SEP</span>
+          </div>
+          <div class="news-body">
+            <h3>Nuevo laboratorio de tecnología</h3>
+            <p>Inauguramos un espacio con equipos de última generación para programación y diseño.</p>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-img">
+            🎓
+            <span class="date">15 SEP</span>
+          </div>
+          <div class="news-body">
+            <h3>Inscripciones 2027 abiertas</h3>
+            <p>Ya podés reservar tu lugar. Cupos limitados. No te quedes afuera.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contacto">
+    <div class="container">
+      <div class="section-header">
+        <h2>CONTACTO</h2>
+        <p>¿Listo para sumarte? Escribinos o visitanos.</p>
+      </div>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>HABLAMOS</h3>
+          <div class="contact-item">
+            <div class="icon">📍</div>
+            <div>
+              <h4>Dirección</h4>
+              <p>Av. Principal 1240, Zona Centro<br>Ciudad Urbana</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">📞</div>
+            <div>
+              <h4>Teléfono</h4>
+              <p>+54 11 4567-8900</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">✉️</div>
+            <div>
+              <h4>Email</h4>
+              <p>info@institutourbano.edu</p>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="icon">🕐</div>
+            <div>
+              <h4>Horario</h4>
+              <p>Lun a Vie · 8:00 – 17:00</p>
+            </div>
+          </div>
+        </div>
+        <form class="contact-form" onsubmit="event.preventDefault(); alert('¡Mensaje enviado! Te respondemos pronto.'); this.reset();">
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="tu@email.com">
+          </div>
+          <div class="form-group">
+            <label for="mensaje">Mensaje</label>
+            <textarea id="mensaje" name="mensaje" required placeholder="¿En qué te podemos ayudar?"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;">Enviar mensaje</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="#inicio" class="logo">INSTITUTO <span>URBANO</span></a>
+        <p>Educación con carácter, disciplina y estilo. Formando la próxima generación de líderes.</p>
+      </div>
+      <div class="footer-col">
+        <h4>ENLACES</h4>
+        <a href="#inicio">Inicio</a>
+        <a href="#nosotros">Nosotros</a>
+        <a href="#programas">Programas</a>
+        <a href="#noticias">Noticias</a>
+      </div>
+      <div class="footer-col">
+        <h4>LEGAL</h4>
+        <a href="#">Privacidad</a>
+        <a href="#">Términos</a>
+        <a href="#">Admisiones</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Instituto Urbano. Todos los derechos reservados.</span>
+      <span>Hecho con 🔥 para GitHub Pages</span>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const menuBtn = document.getElementById('menuBtn');
+    const navLinks = document.getElementById('navLinks');
+    menuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('open');
+    });
+
+    // Close menu on link click
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Active nav on scroll
+    const sections = document.querySelectorAll('section[id]');
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(sec => {
+        const top = sec.offsetTop - 100;
+        if (scrollY >= top) current = sec.getAttribute('id');
+      });
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.classList.remove('active');
+        if (a.getAttribute('href') === '#' + current) a.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
